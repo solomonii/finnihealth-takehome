@@ -14,5 +14,13 @@
     "next": "14.0.3",
     "react": "^18",
     "react-dom": "^18"
-  }
+  },
+  "browser": {
+		"fs": false,
+		"os": false,
+		"path": false,
+		"child_process": false,
+		"net": false,
+		"tls": false
+	}
 }

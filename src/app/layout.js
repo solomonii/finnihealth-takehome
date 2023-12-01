@@ -2,6 +2,7 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 
 const inter = Inter({ subsets: ['latin'] })
+export const dynamic = "force-dynamic";
 
 export const metadata = {
   title: 'finni health take home',

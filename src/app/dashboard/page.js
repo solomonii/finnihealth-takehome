@@ -1,7 +1,14 @@
-export default function Dashboard() {
+import PatientsTable from "@/components/PatientsTable";
+import { getPatients } from "@/lib/firebase/firestore";
+
+export const dynamic = "force-dynamic";
+
+export default async function Dashboard() {
+    const patients = await getPatients();
+
     return (
         <main>
-            <h1>Logged In</h1>
+            <PatientsTable patients={patients} />
         </main>
     )
 }

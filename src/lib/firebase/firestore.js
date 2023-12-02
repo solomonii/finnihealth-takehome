@@ -1,4 +1,12 @@
-import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  doc,
+  getDocs,
+  query,
+  updateDoc,
+  where,
+} from "firebase/firestore";
 import { getAuthenticatedAppForUser } from "./firebase";
 import { db } from "./firebase";
 
@@ -10,13 +18,25 @@ export async function addPatient(patientData) {
   }
 }
 
-export async function getPatients(userId) {
+export async function getPatients() {
   const { currentUser } = await getAuthenticatedAppForUser();
-  const q = query(collection(db, "patients"), where("provider", "==", currentUser.uid));
+  const q = query(
+    collection(db, "patients"),
+    where("provider", "==", currentUser.uid)
+  );
   const querySnapshot = await getDocs(q);
-  return querySnapshot.docs.map((doc)=> {
+  return querySnapshot.docs.map((doc) => {
     return {
-      ...doc.data()
-    }
+      id: doc.id,
+      ...doc.data(),
+    };
   });
+}
+
+export async function updatePatient(patientId, data) {
+  const patientRef = doc(db, "patients", patientId);
+
+  if (patientRef) {
+    await updateDoc(patientRef, data);
+  }
 }

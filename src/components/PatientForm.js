@@ -73,7 +73,7 @@ export default function PatientForm() {
             onChange={(e) => setNotes(e.target.value)}
           />
         </li>
-        <input type="hidden" name="providerId" value={userId} />
+        <input type="hidden" name="provider" value={userId} />
       </ul>
 
       <footer>

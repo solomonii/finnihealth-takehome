@@ -15,9 +15,19 @@ export default function Navigation() {
 
   return (
     <main>
-      <a href="#" onClick={handleSignOut}>
-        Log Out
-      </a>
+      <ul>
+        <li>
+          <a href="/dashboard">Patients</a>
+        </li>
+        <li>
+          <a href="/dashboard/addpatient">Add Patient</a>
+        </li>
+        <li>
+          <a href="#" onClick={handleSignOut}>
+            Log Out
+          </a>
+        </li>
+      </ul>
     </main>
   );
 }

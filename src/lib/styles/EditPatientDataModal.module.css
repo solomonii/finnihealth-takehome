@@ -1,0 +1,56 @@
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modal {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    width: 50%;
+    max-width: 500px; 
+  }
+
+  .formGroup {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .formGroup label {
+    flex: 1;
+    text-align: left;
+    margin-right: 10px;
+  }
+  
+  .formGroup input {
+    flex: 3;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+  }
+  
+  .buttons button {
+    width: 100%;
+    padding: 10px;
+    border-radius: 40px;
+    background-color: #ed762f;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.buttons button:hover {
+    background-color: #fa9a5a; 
+}
+

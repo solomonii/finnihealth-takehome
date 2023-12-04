@@ -2,6 +2,10 @@
 
 import { signInWithGoogle } from "@/lib/firebase/auth";
 import { useRouter } from "next/navigation";
+import styles from "./login.module.css";
+import Image from "next/image";
+import image from "@/lib/kiddo.png";
+import logo from "@/lib/logo.svg";
 
 export default function Login() {
   const router = useRouter();
@@ -12,11 +16,18 @@ export default function Login() {
   }
 
   return (
-    <main>
-      <h1>Finni Health</h1>
-      <a href="#" onClick={handleSignIn}>
-        Log In with Google
-      </a>
-    </main>
+    <div className={styles.loginContainer}>
+      <div className={styles.leftSection}>
+        <div className={styles.loginForm}>
+          <Image src={logo} width={100} height={100} alt="logo" />
+          <button onClick={handleSignIn} className={styles.googleButton}>
+            Login with Google
+          </button>
+        </div>
+      </div>
+      <div className={styles.rightSection}>
+        <Image src={image} alt="image of kid" />
+      </div>
+    </div>
   );
 }

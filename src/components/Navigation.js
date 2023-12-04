@@ -2,6 +2,9 @@
 
 import { signOut } from "@/lib/firebase/auth";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
+import styles from "@/app/dashboard/dashboard.module.css";
+import logo from "@/lib/logo.svg";
 
 export const dynamic = "force-dynamic";
 
@@ -14,7 +17,8 @@ export default function Navigation() {
   }
 
   return (
-    <main>
+    <div className={styles.sidebar}>
+      <Image src={logo} width={100} height={100} alt="logo" />
       <ul>
         <li>
           <a href="/dashboard">Patients</a>
@@ -28,6 +32,6 @@ export default function Navigation() {
           </a>
         </li>
       </ul>
-    </main>
+    </div>
   );
 }

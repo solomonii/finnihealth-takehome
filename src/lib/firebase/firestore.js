@@ -9,6 +9,7 @@ import {
 } from "firebase/firestore";
 import { getAuthenticatedAppForUser } from "./firebase";
 import { db } from "./firebase";
+import { The_Nautigal } from "next/font/google";
 
 export async function addPatient(patientData) {
   try {
@@ -18,12 +19,13 @@ export async function addPatient(patientData) {
   }
 }
 
-export async function getPatients() {
+export async function getPatients(filters) {
   const { currentUser } = await getAuthenticatedAppForUser();
-  const q = query(
+  let q = query(
     collection(db, "patients"),
     where("provider", "==", currentUser.uid)
   );
+  q = applyQueryFilters(q, filters);
   const querySnapshot = await getDocs(q);
   return querySnapshot.docs.map((doc) => {
     return {
@@ -39,4 +41,9 @@ export async function updatePatient(patientId, data) {
   if (patientRef) {
     await updateDoc(patientRef, data);
   }
+}
+
+function applyQueryFilters(q, { firstname, lastname }) {
+  // filter by status
+  return query(q);
 }

@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { handleUpdatePatient } from "@/app/actions";
+import Search from "@/components/Search";
+import { useSearchParams } from "next/navigation";
 
 const EditPatientDataModal = ({ isOpen, onClose, children }) => {
   if (!isOpen) return null;
@@ -30,7 +32,15 @@ function PatientRow({ index, patient, openModal }) {
   );
 }
 
-export default function PatientsTable({ patients }) {
+export default function PatientsTable({ allPatients }) {
+  const searchParams = useSearchParams();
+  const searchHit = allPatients.filter(
+    (p) =>
+      p.firstname === searchParams.get("query") ||
+      p.lastname === searchParams.get("query")
+  );
+  let patients = searchHit.length === 0 ? allPatients : searchHit;
+
   const [selectedPatient, setSelectedPatient] = useState(null);
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
@@ -48,6 +58,7 @@ export default function PatientsTable({ patients }) {
 
   return (
     <article>
+      <Search />
       {patients.map((patient, index) => (
         <PatientRow index={index} patient={patient} openModal={openModal} />
       ))}

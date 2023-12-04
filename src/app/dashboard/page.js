@@ -3,12 +3,15 @@ import { getPatients } from "@/lib/firebase/firestore";
 
 export const dynamic = "force-dynamic";
 
-export default async function Dashboard() {
-    const patients = await getPatients();
+export default async function Dashboard({ searchParams }) {
+  const filters = {
+  };
+  const patients = await getPatients(filters);
 
-    return (
-        <main>
-            <PatientsTable patients={patients} />
-        </main>
-    )
+  return (
+    <main>
+      {/* <Search placeholder="Search for patients" /> */}
+      <PatientsTable allPatients={patients} />
+    </main>
+  );
 }

@@ -1,18 +1,15 @@
-import PatientsTable from "@/components/PatientsTable";
 import { getPatients } from "@/lib/firebase/firestore";
-import styles from "@/app/dashboard/dashboard.module.css";
+import DashboardContainer from "@/components/DashboardContainer";
 
 export const dynamic = "force-dynamic";
 
-export default async function Dashboard({ searchParams }) {
-  const filters = {
-  };
+export default async function Dashboard() {
+  const filters = {};
   const patients = await getPatients(filters);
 
   return (
     <div>
-      <h2 className={styles.header}>Patients</h2>
-      <PatientsTable allPatients={patients} />
+      <DashboardContainer patients={patients} />
     </div>
   );
 }

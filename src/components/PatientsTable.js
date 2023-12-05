@@ -2,8 +2,6 @@
 
 import EditPatientDataModal from "./EditPatientDataModal";
 import { useState } from "react";
-import Search from "@/components/Search";
-import { useSearchParams } from "next/navigation";
 import styles from "@/app/dashboard/dashboard.module.css";
 
 function PatientRow({ index, patient, openModal }) {
@@ -22,15 +20,8 @@ function PatientRow({ index, patient, openModal }) {
   );
 }
 
-export default function PatientsTable({ allPatients }) {
+export default function PatientsTable({ patients }) {
   const [selectedPatient, setSelectedPatient] = useState(null);
-  const searchParams = useSearchParams();
-  const searchHit = allPatients.filter(
-    (p) =>
-      p.firstname === searchParams.get("query") ||
-      p.lastname === searchParams.get("query")
-  );
-  let patients = searchHit.length === 0 ? allPatients : searchHit;
 
   const openModal = (index, patient) => {
     setSelectedPatient({ index, patient });
@@ -42,7 +33,6 @@ export default function PatientsTable({ allPatients }) {
 
   return (
     <div className={styles.dashboard}>
-      <Search />
       <table className={styles.table}>
         <thead>
           <tr>
@@ -67,6 +57,7 @@ export default function PatientsTable({ allPatients }) {
         onClose={closeModal}
         selectedPatient={selectedPatient}
       />
+
     </div>
   );
 }

@@ -1,27 +1,14 @@
 "use client";
+import styles from "@/lib/styles/Search.module.css";
 
-import { useSearchParams, usePathname, useRouter } from "next/navigation";
-
-export default function Search({ placeholder }) {
-  const searchParams = useSearchParams();
-  const pathname = usePathname();
-  const { replace } = useRouter();
-
-  function handleSearch(term) {
-    const params = new URLSearchParams(searchParams);
-    term ? params.set("query", term) : params.delete("query");
-    replace(`${pathname}?${params.toString()}`);
-  }
-
-  return (
-    <div>
-      <label>Search</label>
+export default function Search({ searchQuery, setSearchQuery }) {
+return (
+    <div className={styles.searchContainer}>
       <input
-        placeholder={placeholder}
-        onChange={(e) => {
-          handleSearch(e.target.value);
-        }}
-        defaultValue={searchParams.get('query')?.toString()}
+        type="text"
+        placeholder="Search by name..."
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
       />
     </div>
   );

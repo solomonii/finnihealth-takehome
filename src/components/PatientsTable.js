@@ -2,7 +2,7 @@
 
 import EditPatientDataModal from "./EditPatientDataModal";
 import { useState } from "react";
-import styles from "@/app/dashboard/dashboard.module.css";
+import styles from "@/lib/styles/PatientsTable.module.css";
 
 function PatientRow({ index, patient, openModal }) {
   return (
@@ -32,7 +32,7 @@ export default function PatientsTable({ patients }) {
   };
 
   return (
-    <div className={styles.dashboard}>
+    <div className={styles.tableContainer}>
       <table className={styles.table}>
         <thead>
           <tr>
@@ -57,7 +57,6 @@ export default function PatientsTable({ patients }) {
         onClose={closeModal}
         selectedPatient={selectedPatient}
       />
-
     </div>
   );
 }

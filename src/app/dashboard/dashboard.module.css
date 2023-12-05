@@ -8,6 +8,13 @@
     padding-top: 20px;
 }
 
+.searchAndFilterContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
 .sidebar {
     width: 200px;
     padding: 20px;

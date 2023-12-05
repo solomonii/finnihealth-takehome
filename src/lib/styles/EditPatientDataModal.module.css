@@ -20,6 +20,13 @@
     max-width: 500px; 
   }
 
+  .modalHeader {
+    text-align: left;
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+  }
+
   .formGroup {
     margin-bottom: 20px;
     display: flex;
@@ -34,9 +41,12 @@
   
   .formGroup input {
     flex: 3;
-    padding: 8px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
+    padding: 4px;
+    border: none; 
+    border-bottom: 1px solid #ccc;
+    outline: none; 
+    background-color: #fff;
+    color: #000;
   }
   
   .buttons button {

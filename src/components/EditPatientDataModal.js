@@ -37,11 +37,10 @@ export default function EditPatientDataModal({
   return (
     <div className={styles.modalOverlay}>
       <div className={styles.modal} ref={modalRef}>
-        <span onClick={onClose}>&times;</span>
-        <h1>
+        <h2 className={styles.modalHeader}>
           {selectedPatient?.patient.firstname}{" "}
           {selectedPatient?.patient.lastname}
-        </h1>
+        </h2>
         <form action={handleUpdatePatient} onSubmit={onClose}>
           <div className={styles.formGroup}>
             <label for="firstname">First name: </label>

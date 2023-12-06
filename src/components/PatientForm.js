@@ -11,18 +11,41 @@ export default function PatientForm() {
   const [lastname, setLastname] = useState("");
   const [dob, setDob] = useState("");
   const [status, setStatus] = useState("");
-  const [address, setAddress] = useState("");
+  const [addresses, setAddresses] = useState([""]);
   const [notes, setNotes] = useState("");
 
   const userId = getUser()?.uid;
   const router = useRouter();
 
+  const addAddressField = () => {
+    const newAddresses = [...addresses, ""];
+    setAddresses(newAddresses);
+  };
+
+  const removeAddressField = (indexToRemove) => {
+    const filteredAddresses = addresses.filter(
+      (_, index) => index !== indexToRemove
+    );
+    setAddresses(filteredAddresses);
+  };
+
+  const handleSubmit = (e) => {
+    const formData = {
+      firstname: firstname,
+      lastname: lastname,
+      dob: dob,
+      status: status,
+      address: addresses,
+      notes: notes,
+      provider: userId,
+    };
+
+    handleAddPatient(formData);
+  };
+
   return (
     <div className={styles.formContainer}>
-      <form
-        action={handleAddPatient}
-        onSubmit={() => router.push("/dashboard")}
-      >
+      <form action={handleSubmit} onSubmit={() => router.push("/dashboard")}>
         <div className={styles.formGroup}>
           <label>First Name:</label>
           <input
@@ -50,7 +73,7 @@ export default function PatientForm() {
         <div className={styles.formGroup}>
           <label>Date of Birth:</label>
           <input
-            type="text"
+            type="date"
             name="dob"
             id="dob"
             placeholder="12/1/1990"
@@ -61,7 +84,11 @@ export default function PatientForm() {
 
         <div className={styles.formGroup}>
           <label>Status:</label>
-          <select value={status} onChange={(e) => setStatus(e.target.value)}>
+          <select
+            name="status"
+            value={status}
+            onChange={(e) => setStatus(e.target.value)}
+          >
             <option value="">Select Status</option>
             <option value="Inquiry">Inquiry</option>
             <option value="Onboarding">Onboarding</option>
@@ -70,16 +97,40 @@ export default function PatientForm() {
           </select>
         </div>
 
-        <div className={styles.formGroup}>
+        <div className={styles.addressFormGroup}>
           <label>Address:</label>
-          <input
-            type="text"
-            name="address"
-            id="address"
-            placeholder="1 Central Park West"
-            value={address}
-            onChange={(e) => setAddress(e.target.value)}
-          />
+          {addresses.map((address, index) => (
+            <div key={index} className={styles.addressInput}>
+              {index !== 0 && (
+                <span
+                  className={styles.removeButton}
+                  onClick={() => removeAddressField(index)}
+                >
+                  &times;
+                </span>
+              )}
+              <input
+                type="text"
+                name={`address-${index}`}
+                placeholder="1 Central Park West"
+                value={address}
+                onChange={(e) => {
+                  const updatedAddresses = [...addresses];
+                  updatedAddresses[index] = e.target.value;
+                  setAddresses(updatedAddresses);
+                }}
+              />
+              {index === addresses.length - 1 && (
+                <button
+                  className={styles.addButton}
+                  type="button"
+                  onClick={addAddressField}
+                >
+                  Add Another Address
+                </button>
+              )}
+            </div>
+          ))}
         </div>
 
         <div className={styles.formGroup}>
@@ -93,10 +144,12 @@ export default function PatientForm() {
           />
         </div>
 
-        <input type="hidden" name="provider" value={userId} />
-
         <footer>
-          <button type="submit" value="Add Patient">
+          <button
+            className={styles.submitButton}
+            type="submit"
+            value="Add Patient"
+          >
             Submit
           </button>
         </footer>

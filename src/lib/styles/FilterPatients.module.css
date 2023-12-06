@@ -1,23 +1,23 @@
 .filterContainer {
-    display: flex;
-    flex-wrap: wrap;
-  }
+  display: flex;
+  flex-wrap: wrap;
+}
   
-  .checkboxLabel {
-    display: inline-block; 
-    margin-left: 10px;
-    padding: 8px 16px;
-    border-radius: 20px;
-    background-color: #fbf7f0; 
-    color: #ed762f;
-    cursor: pointer;
-  }
+.checkboxLabel {
+  display: inline-block; 
+  margin-left: 10px;
+  padding: 8px 16px;
+  border-radius: 20px;
+  background-color: #fbf7f0; 
+  color: #ed762f;
+  cursor: pointer;
+}
   
-  .checkboxLabel input {
-    display: none;
-  }
-  
-  .checkboxLabel.checked {
-    background-color: #ED762F;
-    color: white;
-  }
+.checkboxLabel input {
+  display: none;
+}
+
+.checkboxLabel.checked {
+  background-color: #ED762F;
+  color: white;
+}

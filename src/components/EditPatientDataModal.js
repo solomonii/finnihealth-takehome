@@ -28,11 +28,45 @@ export default function EditPatientDataModal({
     };
   }, [isOpen, onClose]);
 
-  const [firstname, setFirstname] = useState("");
-  const [lastname, setLastname] = useState("");
-  const [dob, setDob] = useState("");
-  const [address, setAddress] = useState("");
-  const [notes, setNotes] = useState("");
+  const [firstname, setFirstname] = useState(
+    selectedPatient?.patient.firstname
+  );
+  const [lastname, setLastname] = useState(selectedPatient?.patient.lastname);
+  const [dob, setDob] = useState(selectedPatient?.patient.dob);
+  const [addresses, setAddresses] = useState(
+    selectedPatient?.patient.address || []
+  );
+  const [notes, setNotes] = useState(selectedPatient?.patient.notes);
+
+  const handleAddressChange = (index, value) => {
+    const updatedAddresses = [...addresses];
+    updatedAddresses[index] = value;
+    setAddresses(updatedAddresses);
+  };
+
+  const addAddressField = () => {
+    const newAddresses = [...addresses, ""];
+    setAddresses(newAddresses);
+  };
+
+  const removeAddressField = (indexToRemove) => {
+    const filteredAddresses = addresses.filter(
+      (_, index) => index !== indexToRemove
+    );
+    setAddresses(filteredAddresses);
+  };
+
+  const handleSubmit = (e) => {
+    const updatedPatientData = {
+      firstname: firstname,
+      lastname: lastname,
+      dob: dob,
+      address: addresses,
+      notes: notes,
+    };
+
+    handleUpdatePatient(updatedPatientData, selectedPatient.patient.id);
+  };
 
   return (
     <div className={styles.modalOverlay}>
@@ -41,7 +75,7 @@ export default function EditPatientDataModal({
           {selectedPatient?.patient.firstname}{" "}
           {selectedPatient?.patient.lastname}
         </h2>
-        <form action={handleUpdatePatient} onSubmit={onClose}>
+        <form action={handleSubmit} onSubmit={onClose}>
           <div className={styles.formGroup}>
             <label for="firstname">First name: </label>
             <input
@@ -49,7 +83,6 @@ export default function EditPatientDataModal({
               name="firstname"
               id="firstname"
               value={firstname}
-              placeholder={selectedPatient?.patient.firstname}
               onChange={(e) => setFirstname(e.target.value)}
             />
           </div>
@@ -60,48 +93,55 @@ export default function EditPatientDataModal({
               name="lastname"
               id="lastname"
               value={lastname}
-              placeholder={selectedPatient?.patient.lastname}
               onChange={(e) => setLastname(e.target.value)}
             />
           </div>
           <div className={styles.formGroup}>
             <label for="dob">Date of Birth: </label>
             <input
-              type="text"
+              type="date"
               name="dob"
               id="dob"
               value={dob}
-              placeholder={selectedPatient?.patient.dob}
               onChange={(e) => setDob(e.target.value)}
             />
           </div>
-          <div className={styles.formGroup}>
-            <label for="address">Address: </label>
-            <input
-              type="text"
-              name="address"
-              id="address"
-              value={address}
-              placeholder={selectedPatient?.patient.address}
-              onChange={(e) => setAddress(e.target.value)}
-            />
+
+          <div className={styles.addressFormGroup}>
+            <label htmlFor="address">Addresses:</label>
+            {addresses.map((address, index) => (
+              <div key={index} className={styles.addressInput}>
+                <span
+                  className={styles.removeButton}
+                  onClick={() => removeAddressField(index)}
+                >
+                  &times;
+                </span>
+                <input
+                  type="text"
+                  value={address}
+                  onChange={(e) => handleAddressChange(index, e.target.value)}
+                />
+              </div>
+            ))}
+            <button
+              type="button"
+              onClick={addAddressField}
+              className={styles.addButton}
+            >
+              Add Another Address
+            </button>
           </div>
+
           <div className={styles.formGroup}>
             <label for="notes">Notes: </label>
-            <input
-              type="text"
+            <textarea
               name="notes"
               id="notes"
               value={notes}
-              placeholder={selectedPatient?.patient.notes}
               onChange={(e) => setNotes(e.target.value)}
             />
           </div>
-          <input
-            type="hidden"
-            name="patientId"
-            value={selectedPatient?.patient.id}
-          />
 
           <div className={styles.buttons}>
             <button type="submit" value="Update">
